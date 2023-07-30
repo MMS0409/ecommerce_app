@@ -43,4 +43,20 @@ class ProfileService {
     }
   }
 
+  Future<UniversalData> updateAll({
+    required String username,required String imagePath, required String email,
+  }) async {
+    try {
+      await FirebaseAuth.instance.currentUser?.updateDisplayName(username);
+      await FirebaseAuth.instance.currentUser?.updateEmail(email);
+      await FirebaseAuth.instance.currentUser?.updatePhotoURL(imagePath);
+      return UniversalData(data: "Updated!");
+    } on FirebaseAuthException catch (e) {
+      return UniversalData(error: e.code);
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
+
+
 }

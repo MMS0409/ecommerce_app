@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.myTheme,
         );
       },
-      child: const CategoryADD(),
+      child: const SplashScreen(),
     );
   }
 }
