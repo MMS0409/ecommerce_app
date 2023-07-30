@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
 import 'package:ecommerce_app/ui/route/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '../../data/models/category/category_model.dart';
 import '../../widget/shimmer_category.dart';
 
@@ -19,9 +19,8 @@ class CategoryScreen extends StatelessWidget {
       body: StreamBuilder(
           stream: context.read<CategoryProvider>().getCategories(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            print(snapshot.data);
             if (snapshot.hasError) {
-              return Center(
+              return const Center(
                 child: Text("data not found"),
               );
             }
@@ -37,16 +36,20 @@ class CategoryScreen extends StatelessWidget {
                             height: MediaQuery.of(context).size.height /10,
                             margin: EdgeInsets.all(10.h),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Colors.yellow,
                               borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(
-                                  color: Colors.teal, width: 1.0),
+
                             ),
                             child: Center(
                               child: ListTile(
-                                leading:Image.network(
-                                  categoryModel.imageUrl,
-                                ),
+                                leading:CachedNetworkImage(
+                                  imageUrl: categoryModel.imageUrl,
+                                    placeholder: (context, url) => const ShimmerPhoto(),
+                                    errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error,
+                                        color: Colors.red),
+                                    width: 140.w,
+                                    fit: BoxFit.cover),
                                 title: Text(categoryModel.categoryName),
                                 subtitle: Text(categoryModel.description),
                                 onTap: () {
@@ -58,9 +61,9 @@ class CategoryScreen extends StatelessWidget {
                         })
                       ],
                     )
-                  : const ShimmerCategoriesScreen();
+                  : const Center(child: Text('Data Empty'),);
             }
-            return const ShimmerCategoriesScreen();
+            return const Center(child: Text('Null'),);
           }),
     );
   }

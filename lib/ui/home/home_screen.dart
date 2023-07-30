@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/utils/size_box_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +10,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/category_provider.dart';
 import '../../utils/ui_utils/custom_circular.dart';
 import '../../widget/global_like_button.dart';
+import '../../widget/shimmer_category.dart';
 import '../../widget/shimmer_product.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             } else if (snapshot.hasData) {
               return snapshot.data!.isNotEmpty
                   ? GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 0.6,
                           crossAxisSpacing: 5,
@@ -36,9 +39,9 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, int index) {
                         ProductModel productModel = snapshot.data![index];
                         return Container(
-                        margin: EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            color: Colors.teal,
+                            color: Colors.yellow,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
@@ -48,17 +51,24 @@ class HomeScreen extends StatelessWidget {
                                ...List.generate(
                                  productModel.productImages.length,
                                      (index) =>
-                                     ClipRRect(
-                                       borderRadius: BorderRadius.all(Radius.circular(10)),
-                                       child: Align(
-                                         alignment: Alignment.topCenter,
-                                         heightFactor: 1,
-                                         child:Image.network(
-                                           productModel.productImages[index],
-                                         ),
+                                     Padding(
+                                       padding: const EdgeInsets.all(8.0),
+                                       child: ClipRRect(
+                                         borderRadius: BorderRadius.circular(20),
+                                         child: SizedBox(
+                                           width: 150.w,
+                                           height: 230.h,
+                                             child: CachedNetworkImage(
+                                                 imageUrl: productModel.productImages[index],
+                                                 placeholder: (context, url) => const ShimmerPhoto(),
+                                                 errorWidget: (context, url, error) =>
+                                                 const Icon(Icons.error,
+                                                     color: Colors.red),
+                                                 fit: BoxFit.fill),
+                                           ),
                                        ),
                                      ),
-                               ),
+                                     ),
                                const Positioned(
                                  right: 0,
                                    top: 0,

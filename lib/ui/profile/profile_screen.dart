@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/ui/route/route_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/profiles_provider.dart';
+import '../../widget/shimmer_category.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -29,10 +31,20 @@ class ProfileScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 160.h,
                       width: 150.w,
-                      child: Image.network(user.photoURL ?? '',fit: BoxFit.fill,))),
+                      child: CachedNetworkImage(
+                          imageUrl: user.photoURL ?? '',
+                          placeholder: (context, url) => const ShimmerPhoto(),
+                          errorWidget: (context, url, error) =>
+                          const Icon(Icons.error,
+                              color: Colors.red),
+                          width: 140.w,
+                          fit: BoxFit.cover),),),
               SizedBox(height: 20.h,),
               Center(
                 child: Text(user.displayName ?? '',style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
+              ),
+              Center(
+                child: Text(user.email ?? '',style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
               ),
               ListTile(
                   onTap: () {
