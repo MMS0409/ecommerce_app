@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/data/models/category/category_model.dart';
 import 'package:ecommerce_app/data/models/product/product_model.dart';
+import 'package:ecommerce_app/widget/global_like_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../providers/category_provider.dart';
 import '../../../utils/ui_utils/custom_circular.dart';
 import '../../../utils/ui_utils/loading_dialog.dart';
+import '../../../widget/shimmer_category_detail.dart';
 
 
 class CategoryDetail extends StatefulWidget {
@@ -40,32 +42,35 @@ class _CategoryDetailState extends State<CategoryDetail> {
                     ProductModel productModel = snapshot.data![index];
                     return
                      Container(
-                       margin: EdgeInsets.all(5),
+                       margin: EdgeInsets.all(5.h),
                        child:Column(children: [
-                       ...List.generate(
-                         productModel.productImages.length,
-                             (index) =>
-                             ClipRRect(
-                               borderRadius: BorderRadius.all(Radius.circular(10)),
-                               child: Align(
-                                 alignment: Alignment.topCenter,
-                                 heightFactor: 0.9,
-                                 child:Image.network(
-                                   productModel.productImages[index],
-                                 ),
-                               ),
-                             ),
-                       ),
+                    Stack(children: [
+                      ...List.generate(
+                        productModel.productImages.length,
+                            (index) =>
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                heightFactor: 0.9,
+                                child:Image.network(
+                                  productModel.productImages[index],
+                                ),
+                              ),
+                            ),
+                      ),
+                     const  Positioned(
+                        right: 0,top: 0,
+                          child:  GlobalLikeButton()),
+                    ],),
                        ListTile(title:Text( productModel.description,),
                        subtitle: Text( productModel.currency.toString(),),)
                      ],),);
 
                 })
-               :Center(child: CustomCircularProgressIndicator(),) ;
-
-
+               :const ShimmerCategoryIdScreen() ;
             }
-            return const Center(child:CustomCircularProgressIndicator() );
+            return const ShimmerCategoryIdScreen();
           }),
 
     );
