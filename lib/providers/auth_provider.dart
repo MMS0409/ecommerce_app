@@ -97,8 +97,6 @@ class AuthProvider with ChangeNotifier {
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
-
-
     if (universalData.error.isEmpty) {
       if (context.mounted) {
         showMessage(context, "User Signed Up with Google.");
@@ -112,7 +110,8 @@ class AuthProvider with ChangeNotifier {
 
   showMessage(BuildContext context, String error) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
-    isLoading = false;
-    notifyListeners();
+    if (context.mounted) {
+      hideLoading(dialogContext: context);
+    }
   }
 }
