@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ecommerce_app/data/models/category/category_model.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_category/upload_img.dart';
