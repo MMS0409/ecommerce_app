@@ -15,16 +15,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   _init() async {
     await Future.delayed(const Duration(seconds: 3));
-
     if (context.mounted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const App();
-          },
-        ),
-      );
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return const App();
+        },
+      ),);
     }
   }
 
