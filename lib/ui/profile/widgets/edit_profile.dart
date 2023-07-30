@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:ecommerce_app/ui/auth/widgets/global_text_fields.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -17,24 +17,33 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+
   XFile? _imageFile;
   String? _imageUrl;
 
-  Future<void> _pickImage() async {
-    XFile? pickedFile = await pickImage();
-    setState(() {
-      _imageFile = pickedFile;
-    });
+  File? image;
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
   }
 
-  Future<void> _uploadImage() async {
-    String? downloadUrl = await uploadImageToFirebase(_imageFile);
-    setState(() {
-      _imageUrl = downloadUrl;
-    });
+  Future pickCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
   }
-
-  Future<String?> uploadImageToFirebase(XFile? imageFile) async {
+  Future<String?> uploadImageToFirebase(File? imageFile) async {
     if (imageFile == null) return null;
 
     try {
@@ -57,20 +66,12 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  Future<XFile?> pickImage() async {
-    final picker = ImagePicker();
-    XFile? pickedFile;
-
-    try {
-      pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    } catch (e) {
-      print('Error picking image: $e');
-    }
-
-    return pickedFile;
+  Future<void> _uploadImage() async {
+    String? downloadUrl = await uploadImageToFirebase(image);
+    setState(() {
+      _imageUrl = downloadUrl;
+    });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +94,6 @@ class _EditProfileState extends State<EditProfile> {
 
                   controller: context.read<ProfileProvider>().nameController, icon: Icons.person,
                 ),
-                // TextButton(
-                //   onPressed: () {
-                //
-                //   },
-                //   child: const Text("Update name"),
-                // ),
                 GlobalTextField(
                   hintText: "Email Update",
                   keyboardType: TextInputType.emailAddress,
@@ -106,23 +101,21 @@ class _EditProfileState extends State<EditProfile> {
                   textAlign: TextAlign.start,
                   controller: context.read<ProfileProvider>().emailController, icon: Icons.email,
                 ),
-
+                image==null?Text(''):Image.file(image!),
                 ElevatedButton(onPressed: (){
-                 _pickImage();
+                  pickImage();
                 }, child: const Text('Select image')),
-                if (_imageUrl != null) Text('Download URL: $_imageUrl'),
-                // TextButton(
-                //   onPressed: () {
-                //
-                //   },
-                //   child: const Text("Update email"),
-                // ),
+                ElevatedButton(onPressed: (){
+                  pickCamera();
+                }, child: const Text('Select camera')),
+
                 TextButton(
                   onPressed: () {
+                    _uploadImage();
                     context.read<ProfileProvider>().updateUsername(context);
                     context.read<ProfileProvider>().updateEmail(context);
-                    // context.read<ProfileProvider>().updateUserImage(context,
-                    //     "https://cdn-icons-png.flaticon.com/512/3135/3135715.png");
+                    context.read<ProfileProvider>().updateUserImage(context,
+                        _imageUrl!);
                   },
                   child: const Text("Update profile image"),
                 ),
