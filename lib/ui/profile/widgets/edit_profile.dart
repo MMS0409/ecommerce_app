@@ -16,8 +16,9 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   String? _imageUrl;
-
   File? image;
+
+
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -95,7 +96,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: context.read<ProfileProvider>().emailController,
                   icon: Icons.email,
                 ),
-                image == null ? Text('') : Image.file(image!,height: 70,),
+                image == null ? const Text('') : Image.file(image!,height: 70,),
                 ElevatedButton(
                     onPressed: () {
                       pickImage();
@@ -111,9 +112,8 @@ class _EditProfileState extends State<EditProfile> {
                     _uploadImage();
                     context.read<ProfileProvider>().updateUsername(context);
                     context.read<ProfileProvider>().updateEmail(context);
-                    context
-                        .read<ProfileProvider>()
-                        .updateUserImage(context, _imageUrl!);
+                    context.read<ProfileProvider>().updateUserImage(context, _imageUrl!);
+                    Navigator.pop(context);
                   },
                   child: const Text("Update profile image"),
                 ),
