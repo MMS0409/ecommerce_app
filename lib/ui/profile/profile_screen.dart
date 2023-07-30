@@ -20,7 +20,13 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 20.h,),
-              ClipRRect(
+             user!.photoURL==null? Icon(
+               Icons.account_circle,
+               size: 96.h,
+             ):
+
+
+             ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                   child: Image.network(user?.photoURL ?? '')),
               SizedBox(height: 20.h,),
