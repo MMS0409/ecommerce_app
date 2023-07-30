@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/ui/route/route_names.dart';
-import 'package:ecommerce_app/ui/route/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,14 +24,15 @@ class ProfileScreen extends StatelessWidget {
                Icons.account_circle,
                size: 96.h,
              ):
-
-
              ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                  child: Image.network(user?.photoURL ?? '',width: 150,height: 150,)),
+                  child: SizedBox(
+                    height: 160.h,
+                      width: 150.w,
+                      child: Image.network(user.photoURL ?? '',fit: BoxFit.fill,))),
               SizedBox(height: 20.h,),
               Center(
-                child: Text(user?.displayName ?? '',style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
+                child: Text(user.displayName ?? '',style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
               ),
               ListTile(
                   onTap: () {
@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                   title: const Text(
                     "Log Out",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.red),
                   ),
                 trailing: const Icon(Icons.exit_to_app_outlined,color: Colors.red,),
               ),
