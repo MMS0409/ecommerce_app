@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1018173648423",
+    "project_id": "ecommercee-d9925",
+    "storage_bucket": "ecommercee-d9925.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018173648423:android:bc8746a4a4b8f0783be802",
+        "android_client_info": {
+          "package_name": "uz.ecommercee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018173648423-98msdubi08kra0e06h6b0chihdot6uku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPW9C1LawV_hVObgLD_tcms7ojRHxbESk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018173648423-98msdubi08kra0e06h6b0chihdot6uku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
