@@ -12,12 +12,22 @@ class GlobalTextField extends StatefulWidget {
      this.textInputAction,
     required this.textAlign,
     this.obscureText = false,
+
     required this.controller, this.maxlines,
   }) : super(key: key);
 
   final String hintText;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+
+    required this.controller,
+    required this.icon,
+  }) : super(key: key);
+
+  final String hintText;
+  final IconData icon;
+
+
   final TextAlign textAlign;
   final bool obscureText;
   final int? maxlines;
@@ -30,6 +40,7 @@ class GlobalTextField extends StatefulWidget {
 
 class _GlobalTextFieldState extends State<GlobalTextField> {
   bool isSee = false;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -42,17 +53,26 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
       textAlign: widget.textAlign,
       textInputAction: widget.textInputAction,
       keyboardType: widget.keyboardType,
-      obscureText: !isSee&&widget.obscureText,
+      obscureText: !isSee && widget.obscureText,
       controller: widget.controller,
       decoration: InputDecoration(
-        suffixIcon: widget.obscureText?IconButton(
-          splashRadius: 1,
-            onPressed: (){
-          setState(() {
-            isSee=!isSee;
-          });
-        }, icon: Icon(isSee?Icons.remove_red_eye:CupertinoIcons.eye_slash_fill),color: AppColors.c_111015,)
-            :Icon(widget.hintText=='Username'?Icons.person:Icons.email_rounded,color: AppColors.c_111015,),
+        suffixIcon: widget.obscureText
+            ? IconButton(
+                splashRadius: 1,
+                onPressed: () {
+                  setState(() {
+                    isSee = !isSee;
+                  });
+                },
+                icon: Icon(isSee
+                    ? Icons.remove_red_eye
+                    : CupertinoIcons.eye_slash_fill),
+                color: AppColors.c_111015,
+              )
+            : Icon(
+                widget.icon,
+                color: AppColors.c_111015,
+              ),
         filled: true,
         fillColor: AppColors.white,
         hintText: widget.hintText,
@@ -62,11 +82,10 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             color: AppColors.c_838589,
             fontFamily: "Montserrat"),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(
-            color: Colors.grey,
-          )
-        ),
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: Colors.grey,
+            )),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(

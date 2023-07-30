@@ -26,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
-                controller: context.read<AuthProvider>().userNameController,
+                controller: context.read<AuthProvider>().userNameController, icon: Icons.person,
               ),
               SizedBox(
                 height: 24.h,
@@ -36,7 +36,7 @@ class SignUpScreen extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
-                controller: context.read<AuthProvider>().emailController,
+                controller: context.read<AuthProvider>().emailController, icon: Icons.email,
               ),
               SizedBox(height: 24.h),
               GlobalTextField(
@@ -45,7 +45,7 @@ class SignUpScreen extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 textAlign: TextAlign.start,
                 obscureText: true,
-                controller: context.read<AuthProvider>().passwordController,
+                controller: context.read<AuthProvider>().passwordController, icon: Icons.person,
               ),
               SizedBox(height: 24.h),
               GlobalButton(title: "Sign up", onTap: () {
