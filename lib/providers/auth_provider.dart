@@ -28,12 +28,12 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signUpUser(BuildContext context) async {
+
     String email = emailController.text;
-    String username = userNameController.text;
     String password = passwordController.text;
     showLoading(context: context);
     UniversalData universalData =
-    await firebaseServices.signUpUser(email: email, password: password, userName: username);
+    await firebaseServices.signUpUser(email: email, password: password);
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
