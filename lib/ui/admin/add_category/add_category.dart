@@ -5,6 +5,7 @@ import 'package:ecommerce_app/providers/category_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_category/upload_img.dart';
 import 'package:ecommerce_app/ui/auth/widgets/global_text_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -39,20 +40,28 @@ class _CategoryADDState extends State<CategoryADD> {
       appBar: AppBar(
         title: const Text("Category Add"),
       ),
-      body: Container(
+      body: Padding(
+        padding: EdgeInsets.all(10.h),
         child: ListView(
           children: [
+            SizedBox(height: 10.h),
             GlobalTextField(
                 hintText: "Add Category name",
                 textAlign: TextAlign.start,
                 controller:
                     context.read<CategoryProvider>().categoryNamecontroller),
+            SizedBox(
+              height: 10.h,
+            ),
             GlobalTextField(
                 hintText: "Add Category description",
                 maxlines: 5,
                 textAlign: TextAlign.start,
                 controller:
                     context.read<CategoryProvider>().categoryDesccontroller),
+            SizedBox(
+              height: 10.h,
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
