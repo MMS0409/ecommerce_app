@@ -8,21 +8,22 @@ class GlobalTextField extends StatefulWidget {
   const GlobalTextField({
     Key? key,
     required this.hintText,
-    required this.keyboardType,
-    required this.textInputAction,
+    this.keyboardType,
+    this.textInputAction,
     required this.textAlign,
     this.obscureText = false,
     required this.controller,
-    required this.icon,
+     this.icon, this.maxlines,
   }) : super(key: key);
 
   final String hintText;
-  final IconData icon;
-  final TextInputType keyboardType;
-  final TextInputAction textInputAction;
+  final IconData? icon;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final TextAlign textAlign;
   final bool obscureText;
   final TextEditingController controller;
+  final int? maxlines;
 
   @override
   State<GlobalTextField> createState() => _GlobalTextFieldState();
