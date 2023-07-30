@@ -77,10 +77,8 @@ class AuthProvider with ChangeNotifier {
     String password = passwordController.text;
     showLoading(context: context);
 
-    UniversalData universalData =
-        await firebaseServices.loginUser(email: email, password: password);
-
     UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
+
 
     if (context.mounted) {
       hideLoading(dialogContext: context);
