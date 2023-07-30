@@ -6,6 +6,7 @@ import '../models/universal_data.dart';
 class AuthService {
   Future<UniversalData> signUpUser({
     required String email,
+    required String userName,
     required String password,
   }) async {
     try {

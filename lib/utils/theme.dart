@@ -23,7 +23,7 @@ class AppTheme {
       unselectedItemColor: Colors.white,
       showSelectedLabels: true,
       showUnselectedLabels: false,
-      selectedLabelStyle: const TextStyle(color: Colors.white)
+      selectedLabelStyle: const TextStyle(color: Colors.yellow)
     ),
     appBarTheme: AppBarTheme(
       shape: const RoundedRectangleBorder(
@@ -33,7 +33,7 @@ class AppTheme {
       titleTextStyle: TextStyle(
         fontSize: 30.sp,
       fontWeight: FontWeight.w600,
-      color: Colors.white,
+      color: Colors.yellow,
       fontFamily: "Montserrat"
       ),
       backgroundColor: AppColors.c_111015,

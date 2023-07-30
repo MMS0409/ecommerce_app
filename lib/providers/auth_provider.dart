@@ -29,14 +29,11 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> signUpUser(BuildContext context) async {
     String email = emailController.text;
+    String username = userNameController.text;
     String password = passwordController.text;
     showLoading(context: context);
     UniversalData universalData =
-    await firebaseServices.signUpUser(email: email, password: password);
-    if (context.mounted) {
-      hideLoading(dialogContext: context);
-    }
-
+    await firebaseServices.signUpUser(email: email, password: password, userName: username);
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
@@ -56,9 +53,6 @@ class AuthProvider with ChangeNotifier {
     String password = passwordController.text;
     showLoading(context: context);
     UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
-    if (context.mounted) {
-      hideLoading(dialogContext: context);
-    }
 
 
     if (universalData.error.isEmpty) {
