@@ -2,6 +2,7 @@ import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
 import 'package:ecommerce_app/providers/profiles_provider.dart';
 import 'package:ecommerce_app/splash/splash_screen.dart';
+import 'package:ecommerce_app/ui/admin/category_add/cat_add.dart';
 import 'package:ecommerce_app/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

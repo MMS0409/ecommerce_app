@@ -8,18 +8,20 @@ class GlobalTextField extends StatefulWidget {
   const GlobalTextField({
     Key? key,
     required this.hintText,
-    required this.keyboardType,
-    required this.textInputAction,
+     this.keyboardType,
+     this.textInputAction,
     required this.textAlign,
     this.obscureText = false,
-    required this.controller,
+    required this.controller, this.maxlines,
   }) : super(key: key);
 
   final String hintText;
-  final TextInputType keyboardType;
-  final TextInputAction textInputAction;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final TextAlign textAlign;
   final bool obscureText;
+  final int? maxlines;
+
   final TextEditingController controller;
 
   @override
@@ -31,6 +33,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLines: widget.maxlines,
       style: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,

@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth_provider.dart';
-import '../../utils/colors/app_colors.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -20,13 +19,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        height: 70.h,
-        decoration: BoxDecoration(
-          color: AppColors.c_111015,
-          borderRadius:  BorderRadius.only(topLeft: Radius.circular(20.r),topRight: Radius.circular(20.r))
-        ),
-      ),
         appBar: AppBar(
           bottom: PreferredSize(
             preferredSize: Size(0, 50.h),

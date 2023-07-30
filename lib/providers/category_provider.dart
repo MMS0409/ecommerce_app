@@ -11,12 +11,16 @@ class CategoryProvider with ChangeNotifier {
 
   final CategoryService categoryService;
 
+  final TextEditingController categoryNamecontroller = TextEditingController();
+  final TextEditingController categoryDesccontroller = TextEditingController();
+
   Future<void> addCategory({
     required BuildContext context,
     required CategoryModel categoryModel,
   }) async {
     showLoading(context: context);
-    UniversalData universalData = await categoryService.addCategory(categoryModel: categoryModel);
+    UniversalData universalData =
+        await categoryService.addCategory(categoryModel: categoryModel);
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
