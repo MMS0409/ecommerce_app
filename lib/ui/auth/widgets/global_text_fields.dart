@@ -14,7 +14,7 @@ class GlobalTextField extends StatefulWidget {
     this.obscureText = false,
     required this.controller,
     this.icon,
-    this.maxlines,
+    this.maxlines = 1,
   }) : super(key: key);
 
   final String hintText;
@@ -24,7 +24,7 @@ class GlobalTextField extends StatefulWidget {
   final TextAlign textAlign;
   final bool obscureText;
   final TextEditingController controller;
-  final int? maxlines;
+  final int maxlines;
 
   @override
   State<GlobalTextField> createState() => _GlobalTextFieldState();
@@ -36,7 +36,6 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      maxLines: widget.maxlines,
       style: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,

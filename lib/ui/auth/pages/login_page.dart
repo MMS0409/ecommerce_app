@@ -35,7 +35,8 @@ class LoginPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 textAlign: TextAlign.start,
                 obscureText: true,
-                controller: context.read<AuthProvider>().passwordController, icon: Icons.person,
+                controller: context.read<AuthProvider>().passwordController,
+                icon: Icons.person,
               ),
               SizedBox(height: 24.h),
               GlobalButton(

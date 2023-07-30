@@ -82,12 +82,37 @@ class ProfileProvider with ChangeNotifier {
   }
 
   Future<void> updateEmail(BuildContext context) async {
+
     String email = emailController.text;
 
     if (email.isNotEmpty) {
       showLoading(context: context);
       UniversalData universalData =
-          await profileService.updateUserEmail(email: email);
+      await profileService.updateUserEmail(email: email);
+      if (context.mounted) {
+        hideLoading(dialogContext: context);
+      }
+      if (universalData.error.isEmpty) {
+        if (context.mounted) {
+          showMessage(context, universalData.data as String);
+        }
+      } else {
+        if (context.mounted) {
+          showMessage(context, universalData.error);
+        }
+      }
+    }else{
+      showMessage(context, 'Email empty');
+    }
+  }
+
+  Future<void> updateAll(BuildContext context) async {
+    String name = nameController.text;
+    String email = emailController.text;
+
+    if (email.isNotEmpty&&name.isNotEmpty) {
+      showLoading(context: context);
+      UniversalData universalData = await profileService.updateUserEmail(email: email);
       if (context.mounted) {
         hideLoading(dialogContext: context);
       }
