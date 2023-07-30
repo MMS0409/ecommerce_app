@@ -2,6 +2,7 @@ import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
 import 'package:ecommerce_app/providers/profiles_provider.dart';
 import 'package:ecommerce_app/splash/splash_screen.dart';
+import 'package:ecommerce_app/ui/admin/add_category/add_category.dart';
 import 'package:ecommerce_app/ui/route/route_names.dart';
 import 'package:ecommerce_app/ui/route/routes.dart';
 import 'package:ecommerce_app/utils/theme.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.myTheme,
         );
       },
-      child: const SplashScreen(),
+      child: const CategoryADD(),
     );
   }
 }
