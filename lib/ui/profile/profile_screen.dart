@@ -26,7 +26,10 @@ class ProfileScreen extends StatelessWidget {
              ):
              ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                  child: Image.network(user.photoURL ?? '',width: 150,height: 150,)),
+                  child: SizedBox(
+                    height: 160.h,
+                      width: 150.w,
+                      child: Image.network(user.photoURL ?? '',fit: BoxFit.fill,))),
               SizedBox(height: 20.h,),
               Center(
                 child: Text(user.displayName ?? '',style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
@@ -47,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                   title: const Text(
                     "Log Out",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.red),
                   ),
                 trailing: const Icon(Icons.exit_to_app_outlined,color: Colors.red,),
               ),
