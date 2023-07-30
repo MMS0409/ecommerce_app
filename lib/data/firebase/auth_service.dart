@@ -26,13 +26,12 @@ class AuthService {
   }
   Future<UniversalData> signtoFirestore({
     required String email,
-    required String role,
   }) async {
     try {
       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user=  FirebaseAuth.instance.currentUser;
     CollectionReference ref = firebaseFirestore.collection('users');
-    ref.doc(user!.uid).set({'email': email, 'role': role});
+    ref.doc(user!.uid).set({'email': email, });
       return UniversalData(data: 'Added');
     } on FirebaseAuthException catch (e) {
       return UniversalData(error: e.code);
