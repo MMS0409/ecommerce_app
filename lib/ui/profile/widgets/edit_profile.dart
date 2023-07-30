@@ -10,25 +10,21 @@ import '../../../providers/profiles_provider.dart';
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
-
-
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-
-  XFile? _imageFile;
   String? _imageUrl;
 
   File? image;
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(image == null) return;
+      if (image == null) return;
       final imageTemp = File(image.path);
       setState(() => this.image = imageTemp);
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
@@ -36,28 +32,25 @@ class _EditProfileState extends State<EditProfile> {
   Future pickCamera() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if(image == null) return;
+      if (image == null) return;
       final imageTemp = File(image.path);
       setState(() => this.image = imageTemp);
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
+
   Future<String?> uploadImageToFirebase(File? imageFile) async {
     if (imageFile == null) return null;
 
     try {
-      // Create a unique filename for the image using the current timestamp
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
-      // Reference to the Firebase Storage bucket
       firebase_storage.Reference ref =
-      firebase_storage.FirebaseStorage.instance.ref().child(fileName);
+          firebase_storage.FirebaseStorage.instance.ref().child(fileName);
 
-      // Upload the image to Firebase Storage
       await ref.putFile(File(imageFile.path));
 
-      // Get the download URL of the uploaded image
       String downloadURL = await ref.getDownloadURL();
       return downloadURL;
     } catch (e) {
@@ -91,31 +84,36 @@ class _EditProfileState extends State<EditProfile> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   textAlign: TextAlign.start,
-
-                  controller: context.read<ProfileProvider>().nameController, icon: Icons.person,
+                  controller: context.read<ProfileProvider>().nameController,
+                  icon: Icons.person,
                 ),
                 GlobalTextField(
                   hintText: "Email Update",
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   textAlign: TextAlign.start,
-                  controller: context.read<ProfileProvider>().emailController, icon: Icons.email,
+                  controller: context.read<ProfileProvider>().emailController,
+                  icon: Icons.email,
                 ),
-                image==null?Text(''):Image.file(image!),
-                ElevatedButton(onPressed: (){
-                  pickImage();
-                }, child: const Text('Select image')),
-                ElevatedButton(onPressed: (){
-                  pickCamera();
-                }, child: const Text('Select camera')),
-
+                image == null ? Text('') : Image.file(image!,height: 70,),
+                ElevatedButton(
+                    onPressed: () {
+                      pickImage();
+                    },
+                    child: const Text('Select image')),
+                ElevatedButton(
+                    onPressed: () {
+                      pickCamera();
+                    },
+                    child: const Text('Select camera')),
                 TextButton(
                   onPressed: () {
                     _uploadImage();
                     context.read<ProfileProvider>().updateUsername(context);
                     context.read<ProfileProvider>().updateEmail(context);
-                    context.read<ProfileProvider>().updateUserImage(context,
-                        _imageUrl!);
+                    context
+                        .read<ProfileProvider>()
+                        .updateUserImage(context, _imageUrl!);
                   },
                   child: const Text("Update profile image"),
                 ),
@@ -127,4 +125,3 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 }
-
