@@ -73,13 +73,13 @@ class _CategoryADDState extends State<CategoryADD> {
                     height: 70,
                   ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _pickImage,
-                  child: const Text('Pick Image'),
-                ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _uploadImage,
+                  onPressed: () async{
+                   await _pickImage();
+
+                   await _uploadImage();
+                  },
                   child: const Text('Upload Image'),
                 ),
                 ElevatedButton(
