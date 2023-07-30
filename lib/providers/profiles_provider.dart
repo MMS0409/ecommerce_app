@@ -86,12 +86,7 @@ class ProfileProvider with ChangeNotifier {
     String email = emailController.text;
 
     if (email.isNotEmpty) {
-      showLoading(context: context);
-      UniversalData universalData =
-      await profileService.updateUserEmail(email: email);
-      if (context.mounted) {
-        hideLoading(dialogContext: context);
-      }
+      UniversalData universalData = await profileService.updateUserEmail(email: email);
       if (universalData.error.isEmpty) {
         if (context.mounted) {
           showMessage(context, universalData.data as String);
@@ -106,27 +101,91 @@ class ProfileProvider with ChangeNotifier {
     }
   }
 
-  Future<void> updateAll(BuildContext context) async {
+  Future<void> updateAll(BuildContext context,String imagePath) async {
     String name = nameController.text;
     String email = emailController.text;
 
-    if (email.isNotEmpty&&name.isNotEmpty) {
-      showLoading(context: context);
-      UniversalData universalData = await profileService.updateUserEmail(email: email);
-      if (context.mounted) {
-        hideLoading(dialogContext: context);
-      }
-      if (universalData.error.isEmpty) {
-        if (context.mounted) {
-          showMessage(context, universalData.data as String);
+    if(name.isNotEmpty){
+
+      if(email.isNotEmpty){
+        await updateEmail(context);
+        if(imagePath.isNotEmpty){
+          if(context.mounted) {
+            showLoading(context: context);
+          }
+          UniversalData universalData = await profileService.updateAll(imagePath: imagePath, username: name, email: email);
+          if(context.mounted) {
+            hideLoading(dialogContext: context);
+          }
+        }else{
+          if (context.mounted) {
+            showMessage(context, 'Image empty');
+          }
         }
-      } else {
+      }else{
         if (context.mounted) {
-          showMessage(context, universalData.error);
+          showMessage(context, 'Email empty');
         }
       }
     }else{
-      showMessage(context, 'Email empty');
+      if (context.mounted) {
+        showMessage(context, 'Name empty');
+      }
     }
+
+    // if (name.isNotEmpty) {
+    //
+    //   if (email.isNotEmpty&&name.isNotEmpty) {
+    //     if (universalData.error.isEmpty) {
+    //       if (context.mounted) {
+    //         showMessage(context, universalData.data as String);
+    //       }
+    //     } else {
+    //       if (context.mounted) {
+    //         showMessage(context, universalData.error);
+    //       }
+    //     }
+    //     if (imagePath.isNotEmpty) {
+    //       UniversalData
+    //       if(context.mounted) {
+    //         Navigator.pop(context);
+    //       }
+    //       if (universalData.error.isEmpty) {
+    //         if (context.mounted) {
+    //           showMessage(context, universalData.data as String);
+    //         }
+    //       } else {
+    //         if (context.mounted) {
+    //           showMessage(context, universalData.error);
+    //         }
+    //       }
+    //     }
+    //   }else{
+    //     if (context.mounted) {
+    //       showMessage(context, 'Email empty');
+    //     }
+    //   }
+    //   UniversalData
+    //   if (universalData.error.isEmpty) {
+    //     if (context.mounted) {
+    //       showMessage(context, universalData.data as String);
+    //     }
+    //   } else {
+    //     if (context.mounted) {
+    //       showMessage(context, universalData.error);
+    //     }
+    //   }
+    //
+    //   if(context.mounted) {
+    //     hideLoading(dialogContext: context);
+    //   }
+    // }else{
+    //   if (context.mounted) {
+    //     showMessage(context, 'Name empty');
+    //   }
+    // }
+    //
+
+
   }
 }

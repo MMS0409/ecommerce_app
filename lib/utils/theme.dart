@@ -30,8 +30,8 @@ class AppTheme {
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20))
       ),
       centerTitle: true,
-      titleTextStyle: const TextStyle(
-        fontSize: 30,
+      titleTextStyle: TextStyle(
+        fontSize: 30.sp,
       fontWeight: FontWeight.w600,
       color: Colors.white,
       fontFamily: "Montserrat"
