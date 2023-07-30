@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/ui/category/category_details/categorie_detail.dart';
 import 'package:ecommerce_app/ui/profile/widgets/edit_profile.dart';
 import 'package:ecommerce_app/ui/route/route_names.dart';
+import 'package:ecommerce_app/widget/global_search_view.dart';
 import 'package:flutter/material.dart';
 
 

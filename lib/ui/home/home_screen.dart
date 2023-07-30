@@ -1,12 +1,7 @@
-import 'package:ecommerce_app/utils/size_box_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
-
 import '../../data/models/product/product_model.dart';
-import '../../providers/auth_provider.dart';
 import '../../providers/category_provider.dart';
-import '../../utils/ui_utils/custom_circular.dart';
 import '../../widget/global_like_button.dart';
 import '../../widget/shimmer_product.dart';
 
@@ -18,6 +13,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [IconButton(onPressed: (){
+
+        }, icon:  Icon(Icons.search,size: 30,),)],
       ),
       body: StreamBuilder(
           stream: context.read<CategoryProvider>().getAllProducts(),
@@ -36,43 +34,43 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, int index) {
                         ProductModel productModel = snapshot.data![index];
                         return Container(
-                        margin: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.teal,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
+                          margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.teal,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
 
-                             Stack(children: [
-                               ...List.generate(
-                                 productModel.productImages.length,
-                                     (index) =>
-                                     ClipRRect(
-                                       borderRadius: BorderRadius.all(Radius.circular(10)),
-                                       child: Align(
-                                         alignment: Alignment.topCenter,
-                                         heightFactor: 1,
-                                         child:Image.network(
-                                           productModel.productImages[index],
-                                         ),
+                           Stack(children: [
+                             ...List.generate(
+                               productModel.productImages.length,
+                                   (index) =>
+                                   ClipRRect(
+                                     borderRadius: BorderRadius.all(Radius.circular(10)),
+                                     child: Align(
+                                       alignment: Alignment.topCenter,
+                                       heightFactor: 1,
+                                       child:Image.network(
+                                         productModel.productImages[index],
                                        ),
                                      ),
-                               ),
-                               const Positioned(
-                                 right: 0,
-                                   top: 0,
-                                   child: GlobalLikeButton()),
-                             ],),
-                              Text(
-                                productModel.description,
-                              ),
-                              Text(
-                                productModel.createdAt.toString(),
-                              ),
-                            ],
-                          ),
-                        );
+                                   ),
+                             ),
+                             const Positioned(
+                               right: 0,
+                                 top: 0,
+                                 child: GlobalLikeButton()),
+                           ],),
+                            Text(
+                              productModel.description,
+                            ),
+                            Text(
+                              productModel.createdAt.toString(),
+                            ),
+                          ],
+                        ),
+                          );
                       })
                   :const  ShimmerProductScreen();
             }
