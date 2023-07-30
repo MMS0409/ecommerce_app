@@ -52,9 +52,9 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: AppRoute.generateRoute,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.myTheme,
+          home: const SplashScreen(),
         );
       },
-      child: const SplashScreen(),
     );
   }
 }
