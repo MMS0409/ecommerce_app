@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/models/category/category_model.dart';
-import '../../utils/ui_utils/custom_circular.dart';
 import '../../widget/shimmer_category.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -48,8 +47,6 @@ class CategoryScreen extends StatelessWidget {
                                 leading:Image.network(
                                   categoryModel.imageUrl,
                                 ),
-
-
                                 title: Text(categoryModel.categoryName),
                                 subtitle: Text(categoryModel.description),
                                 onTap: () {

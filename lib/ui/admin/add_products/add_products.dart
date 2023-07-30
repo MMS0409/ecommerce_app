@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:ecommerce_app/data/models/category/category_model.dart';
-import 'package:ecommerce_app/providers/category_provider.dart';
+import 'package:ecommerce_app/providers/products_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_category/upload_img.dart';
+import 'package:ecommerce_app/ui/admin/add_products/widgets/addButton.dart';
+import 'package:ecommerce_app/ui/admin/add_products/widgets/select_cat.dart';
 import 'package:ecommerce_app/ui/auth/widgets/global_text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,7 @@ class Addproducts extends StatefulWidget {
 class _AddproductsState extends State<Addproducts> {
   XFile? _imageFile;
   String? _imageUrl;
+  String? catID;
 
   Future<void> _pickImage() async {
     XFile? pickedFile = await pickImage();
@@ -38,7 +40,7 @@ class _AddproductsState extends State<Addproducts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Category Add"),
+        title: const Text("Add Products"),
       ),
       body: Padding(
         padding: EdgeInsets.all(10.h),
@@ -46,25 +48,80 @@ class _AddproductsState extends State<Addproducts> {
           children: [
             SizedBox(height: 10.h),
             GlobalTextField(
-                hintText: "Add Category name",
+                hintText: "Add Product name",
                 textAlign: TextAlign.start,
                 controller:
-                    context.read<CategoryProvider>().categoryNamecontroller),
+                    context.read<ProductsProvider>().ProductsNamecontroller),
+            SizedBox(height: 10.h),
+            GlobalTextField(
+                hintText: "Add Product count",
+                textAlign: TextAlign.start,
+                keyboardType: TextInputType.number,
+                controller:
+                    context.read<ProductsProvider>().ProductsCountcontroller),
             SizedBox(
               height: 10.h,
             ),
             GlobalTextField(
-                hintText: "Add Category description",
+                hintText: "Add Product description",
                 maxlines: 5,
                 textAlign: TextAlign.start,
                 controller:
-                    context.read<CategoryProvider>().categoryDesccontroller),
+                    context.read<ProductsProvider>().ProductsDesccontroller),
             SizedBox(
               height: 10.h,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            GlobalTextField(
+                keyboardType: TextInputType.number,
+                hintText: "Add Product Price",
+                maxlines: 5,
+                textAlign: TextAlign.start,
+                controller:
+                    context.read<ProductsProvider>().ProductsPricecontroller),
+            SizedBox(
+              height: 10.h,
+            ),
+            GlobalTextField(
+                hintText: "Add Product Currency",
+                maxlines: 5,
+                textAlign: TextAlign.start,
+                controller: context
+                    .read<ProductsProvider>()
+                    .ProductsCurrencycontroller),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CategorySelectionWidget(
+                          onCategorySelected: (p0) {
+                            setState(() {
+                              catID = p0;
+                            });
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: const Text(
+                    "Choose Category",
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await _pickImage();
+
+                    await _uploadImage();
+                  },
+                  child: const Text('Upload Image'),
+                ),
+                const SizedBox(width: 20),
                 if (_imageFile != null)
                   Image.file(
                     File(
@@ -72,53 +129,10 @@ class _AddproductsState extends State<Addproducts> {
                     ),
                     height: 70,
                   ),
-                const SizedBox(height: 20),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async{
-                   await _pickImage();
-
-                   await _uploadImage();
-                  },
-                  child: const Text('Upload Image'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    print(_imageUrl);
-                    if (context
-                            .read<CategoryProvider>()
-                            .categoryNamecontroller
-                            .text
-                            .isNotEmpty &&
-                        context
-                            .read<CategoryProvider>()
-                            .categoryDesccontroller
-                            .text
-                            .isNotEmpty &&
-                        _imageUrl != null) {
-                      context.read<CategoryProvider>().addCategory(
-                            context: context,
-                            categoryModel: CategoryModel(
-                              categoryId: '',
-                              categoryName: context
-                                  .read<CategoryProvider>()
-                                  .categoryNamecontroller
-                                  .text,
-                              description: context
-                                  .read<CategoryProvider>()
-                                  .categoryDesccontroller
-                                  .text,
-                              imageUrl: _imageUrl!,
-                              createdAt: DateTime.now().toString(),
-                            ),
-                          );
-                    }
-                  },
-                  child: const Text(
-                    "Add Category",
-                  ),
-                ),
               ],
+            ),
+            AddProductButton(
+              imageUrl: _imageUrl,catId: catID,
             ),
           ],
         ),
