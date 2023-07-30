@@ -2,6 +2,8 @@ import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
 import 'package:ecommerce_app/providers/profiles_provider.dart';
 import 'package:ecommerce_app/splash/splash_screen.dart';
+import 'package:ecommerce_app/ui/route/route_names.dart';
+import 'package:ecommerce_app/ui/route/routes.dart';
 import 'package:ecommerce_app/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +50,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          onGenerateRoute: AppRoute.generateRoute,
           debugShowCheckedModeBanner: false,
           home: child,
           theme: AppTheme.myTheme,
