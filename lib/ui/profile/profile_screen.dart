@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/ui/route/route_names.dart';
+import 'package:ecommerce_app/ui/route/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,6 +37,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               ListTile(
                   onTap: () {
+                    Navigator.pushNamed(context, RouteNames.editProfile);
                   },
                   title: const Text(
                     "Edit Profile",
