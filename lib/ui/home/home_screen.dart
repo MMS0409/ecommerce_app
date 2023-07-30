@@ -1,11 +1,14 @@
 import 'package:ecommerce_app/utils/size_box_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/models/product/product_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/category_provider.dart';
 import '../../utils/ui_utils/custom_circular.dart';
+import '../../widget/global_like_button.dart';
+import '../../widget/shimmer_product.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,9 +23,7 @@ class HomeScreen extends StatelessWidget {
           stream: context.read<CategoryProvider>().getAllProducts(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
-              return const Center(
-                child: CustomCircularProgressIndicator(),
-              );
+              return const ShimmerProductScreen();
             } else if (snapshot.hasData) {
               return snapshot.data!.isNotEmpty
                   ? GridView.builder(
@@ -43,21 +44,26 @@ class HomeScreen extends StatelessWidget {
                           child: Column(
                             children: [
 
-
-                              ...List.generate(
-                                productModel.productImages.length,
-                                (index) =>
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      child: Align(
-                                        alignment: Alignment.topCenter,
-                                        heightFactor: 1,
-                                        child:Image.network(
-                                          productModel.productImages[index],
-                                        ),
-                                      ),
-                                    ),
-                              ),
+                             Stack(children: [
+                               ...List.generate(
+                                 productModel.productImages.length,
+                                     (index) =>
+                                     ClipRRect(
+                                       borderRadius: BorderRadius.all(Radius.circular(10)),
+                                       child: Align(
+                                         alignment: Alignment.topCenter,
+                                         heightFactor: 1,
+                                         child:Image.network(
+                                           productModel.productImages[index],
+                                         ),
+                                       ),
+                                     ),
+                               ),
+                               const Positioned(
+                                 right: 0,
+                                   top: 0,
+                                   child: GlobalLikeButton()),
+                             ],),
                               Text(
                                 productModel.description,
                               ),
@@ -68,13 +74,9 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       })
-                  : Center(
-                      child: CustomCircularProgressIndicator(),
-                    );
+                  :const  ShimmerProductScreen();
             }
-            return Center(
-              child: Text("sjhdbchfvk"),
-            );
+            return const ShimmerProductScreen();
           }),
     );
   }

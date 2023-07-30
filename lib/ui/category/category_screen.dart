@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/models/category/category_model.dart';
 import '../../utils/ui_utils/custom_circular.dart';
+import '../../widget/shimmer_category.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -48,6 +49,7 @@ class CategoryScreen extends StatelessWidget {
                                   categoryModel.imageUrl,
                                 ),
 
+
                                 title: Text(categoryModel.categoryName),
                                 subtitle: Text(categoryModel.description),
                                 onTap: () {
@@ -59,10 +61,11 @@ class CategoryScreen extends StatelessWidget {
                         })
                       ],
                     )
-                  : const Center(child:CustomCircularProgressIndicator());
+                  : const ShimmerCategoriesScreen();
             }
-            return const Center(child: CustomCircularProgressIndicator());
+            return const ShimmerCategoriesScreen();
           }),
     );
   }
+
 }
