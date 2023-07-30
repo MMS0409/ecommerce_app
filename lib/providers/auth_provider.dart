@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,13 +7,14 @@ import '../data/models/universal_data.dart';
 import '../utils/ui_utils/loading_dialog.dart';
 
 class AuthProvider with ChangeNotifier {
-  AuthProvider({required this.firebaseServices});
+  AuthProvider( {required this.firebaseServices});
 
   final AuthService firebaseServices;
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
+  late String role;
 
   bool isLoading = false;
 
@@ -33,7 +35,7 @@ class AuthProvider with ChangeNotifier {
     String password = passwordController.text;
     showLoading(context: context);
     UniversalData universalData =
-    await firebaseServices.signUpUser(email: email, password: password);
+
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
@@ -52,8 +54,11 @@ class AuthProvider with ChangeNotifier {
     String email = emailController.text;
     String password = passwordController.text;
     showLoading(context: context);
-    UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
 
+    UniversalData universalData =
+        await firebaseServices.loginUser(email: email, password: password);
+
+    UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
@@ -101,5 +106,34 @@ class AuthProvider with ChangeNotifier {
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
+  }
+
+  void route(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('rool') == "Teacher") {
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => Teacher(),
+          //   ),
+          // );
+        } else {
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => Student(),
+          //   ),
+          // );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
   }
 }

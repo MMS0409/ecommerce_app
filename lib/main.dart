@@ -1,7 +1,14 @@
+import 'package:ecommerce_app/data/firebase/products_service.dart';
 import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
+import 'package:ecommerce_app/providers/products_provider.dart';
 import 'package:ecommerce_app/providers/profiles_provider.dart';
 import 'package:ecommerce_app/splash/splash_screen.dart';
+
+import 'package:ecommerce_app/ui/admin/add_category/add_category.dart';
+import 'package:ecommerce_app/ui/admin/add_products/add_products.dart';
+import 'package:ecommerce_app/ui/route/route_names.dart';
+
 import 'package:ecommerce_app/ui/route/routes.dart';
 import 'package:ecommerce_app/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +27,10 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(
           create: (context) => AuthProvider(firebaseServices: AuthService()),
+          lazy: true,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductsProvider(ProductService()),
           lazy: true,
         ),
         ChangeNotifierProvider(
