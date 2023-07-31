@@ -3,6 +3,7 @@ import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_products/add_products.dart';
 
 import 'package:ecommerce_app/ui/home/widget/category_name.dart';
+import 'package:ecommerce_app/ui/home/widget/shimmer_category_name.dart';
 import 'package:ecommerce_app/utils/size_box_extension.dart';
 
 import 'package:ecommerce_app/widget/savat.dart';
@@ -52,7 +53,7 @@ class HomeScreen extends StatelessWidget {
 
       body: Column(
         children: [
-          CategoryNameInHome(),
+          const CategoryNameInHome(),
           StreamBuilder(
               stream: context.read<CategoryProvider>().getAllProducts(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -62,10 +63,11 @@ class HomeScreen extends StatelessWidget {
                   return snapshot.data!.isNotEmpty
                       ? Expanded(
                         child: GridView.builder(
+                          physics:const BouncingScrollPhysics(),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    childAspectRatio:0.55,
+                                    childAspectRatio:0.53,
                                     crossAxisSpacing: 5,
                                     mainAxisSpacing: 5),
                             itemCount: snapshot.data!.length,
@@ -73,9 +75,10 @@ class HomeScreen extends StatelessWidget {
                               ProductModel productModel =
                                   snapshot.data![index];
                               return Container(
+                                padding: EdgeInsets.all(5),
                                 margin: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
-                                  color: Colors.yellow,
+                                  color: AppColors.c_FDA429,//Colors.yellow,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Column(
@@ -122,8 +125,18 @@ class HomeScreen extends StatelessWidget {
                               Text(
                                 productModel.productName,style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              Text(
-                                productModel.createdAt.toString().substring(0,16),style:Theme.of(context).textTheme.bodyMedium ,
+                              Row(
+                                children: [
+                                  Text(
+                                   "${ (productModel.createdAt.toString()).substring(0,16)} ||  ",style:Theme.of(context).textTheme.labelMedium ,
+
+                                  ),
+                                  Container(
+                                    height: 20.h,
+                                      width: 40.w,
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: AppColors.c_838589),
+                              child: Center(child: Text( productModel.count.toString(),style: Theme.of(context).textTheme.bodyMedium,)))
+                                ],
                               ),
                               SavatButton(productModel: productModel)
                             ],
