@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:like_button/like_button.dart';
 
-
 class GlobalLikeButton extends StatefulWidget {
   const GlobalLikeButton({Key? key}) : super(key: key);
 
@@ -16,8 +15,7 @@ class _GlobalLikeButtonState extends State<GlobalLikeButton> {
     return LikeButton(
       size: 30,
       circleColor: const CircleColor(
-          start: Color(0xff00ddff),
-          end: Color(0xff0099cc)),
+          start: Color(0xff00ddff), end: Color(0xff0099cc)),
       bubblesColor: const BubblesColor(
         dotPrimaryColor: Color(0xff33b5e5),
         dotSecondaryColor: Color(0xff0099cc),
@@ -25,9 +23,7 @@ class _GlobalLikeButtonState extends State<GlobalLikeButton> {
       likeBuilder: (bool isLiked) {
         return Icon(
           Icons.favorite,
-          color: isLiked
-              ? Colors.deepPurpleAccent
-              : Colors.grey,
+          color: isLiked ? Colors.deepPurpleAccent : Colors.grey,
           size: 30,
         );
       },

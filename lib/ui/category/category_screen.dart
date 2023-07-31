@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/providers/category_provider.dart';
+import 'package:ecommerce_app/providers/order_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_category/add_category.dart';
 import 'package:ecommerce_app/ui/admin/add_category/update_category.dart';
 import 'package:ecommerce_app/ui/route/route_names.dart';
@@ -63,27 +64,30 @@ class CategoryScreen extends StatelessWidget {
                             ),
                             child: Center(
                               child: ListTile(
-                                trailing: Column(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  UpdateCategory(
-                                                      categoryModel:
-                                                          categoryModel),
-                                            ));
-                                      },
-                                      icon: const Icon(
-                                        Icons.edit,
+                                trailing: Visibility(
+                                  visible: context.read<AuthProvider>().isadminvisible,
+                                  child: Column(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateCategory(
+                                                        categoryModel:
+                                                            categoryModel),
+                                              ));
+                                        },
+                                        icon: const Icon(
+                                          Icons.edit,
+                                        ),
                                       ),
-                                    ),
-                                    // IconButton(
-                                    //     onPressed: () {},
-                                    //     icon: const Icon(Icons.delete)),
-                                  ],
+                                      // IconButton(
+                                      //     onPressed: () {},
+                                      //     icon: const Icon(Icons.delete)),
+                                    ],
+                                  ),
                                 ),
                                 leading: CachedNetworkImage(
                                     imageUrl: categoryModel.imageUrl,
