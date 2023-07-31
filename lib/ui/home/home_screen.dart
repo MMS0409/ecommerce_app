@@ -1,9 +1,16 @@
-import 'package:ecommerce_app/widget/global_search_view.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/utils/size_box_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/models/product/product_model.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/category_provider.dart';
+import '../../utils/ui_utils/custom_circular.dart';
 import '../../widget/global_like_button.dart';
+import '../../widget/shimmer_category.dart';
 import '../../widget/shimmer_product.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,20 +18,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String searchText = '';
-    var nameProduct =  context.read<CategoryProvider>().getAllProducts();
-    // List<String> added = [];
-    // added= nameProduct.map((e) => e).toList() as List<String>;
-    // print("====================================================================${added}");
-    List<String> added = ["fvdsv","sdfvsdf"];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        actions: [IconButton(onPressed: ()async{
-          searchText = await showSearch(context: context, delegate: GlobalSearchView(suggestionList: );
-
-        }, icon: Icon(Icons.search),
-        )]
       ),
       body: StreamBuilder(
           stream: context.read<CategoryProvider>().getAllProducts(),
@@ -34,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             } else if (snapshot.hasData) {
               return snapshot.data!.isNotEmpty
                   ? GridView.builder(
-                      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 0.6,
                           crossAxisSpacing: 5,
@@ -43,43 +39,50 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, int index) {
                         ProductModel productModel = snapshot.data![index];
                         return Container(
-                          margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.teal,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
+                        margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
 
-                           Stack(children: [
-                             ...List.generate(
-                               productModel.productImages.length,
-                                   (index) =>
-                                   ClipRRect(
-                                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                                     child: Align(
-                                       alignment: Alignment.topCenter,
-                                       heightFactor: 1,
-                                       child:Image.network(
-                                         productModel.productImages[index],
+                             Stack(children: [
+                               ...List.generate(
+                                 productModel.productImages.length,
+                                     (index) =>
+                                     Padding(
+                                       padding: const EdgeInsets.all(8.0),
+                                       child: ClipRRect(
+                                         borderRadius: BorderRadius.circular(20),
+                                         child: SizedBox(
+                                           width: 150.w,
+                                           height: 230.h,
+                                             child: CachedNetworkImage(
+                                                 imageUrl: productModel.productImages[index],
+                                                 placeholder: (context, url) => const ShimmerPhoto(),
+                                                 errorWidget: (context, url, error) =>
+                                                 const Icon(Icons.error,
+                                                     color: Colors.red),
+                                                 fit: BoxFit.fill),
+                                           ),
                                        ),
                                      ),
-                                   ),
-                             ),
-                             const Positioned(
-                               right: 0,
-                                 top: 0,
-                                 child: GlobalLikeButton()),
-                           ],),
-                            Text(
-                              productModel.description,
-                            ),
-                            Text(
-                              productModel.createdAt.toString(),
-                            ),
-                          ],
-                        ),
-                          );
+                                     ),
+                               const Positioned(
+                                 right: 0,
+                                   top: 0,
+                                   child: GlobalLikeButton()),
+                             ],),
+                              Text(
+                                productModel.description,
+                              ),
+                              Text(
+                                productModel.createdAt.toString(),
+                              ),
+                            ],
+                          ),
+                        );
                       })
                   :const  ShimmerProductScreen();
             }

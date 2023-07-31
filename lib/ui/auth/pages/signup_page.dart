@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/auth_provider.dart';
-import '../../../utils/images/app_images.dart';
 import '../widgets/global_button.dart';
 import '../widgets/global_text_fields.dart';
-import '../widgets/loginWith.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key, required this.onChanged});
@@ -17,12 +15,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  var options = [
-    'User',
-    'Admin',
-  ];
-  var _currentItemSelected = "User";
-  var role = "User";
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -64,73 +56,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 24.h),
               GlobalButton(
                   title: "Sign up",
-                  onTap: () {
+                  onTap: () async {
+                    context.read<AuthProvider>().signtoFiree(
+                          context,
+                        );
+
                     context.read<AuthProvider>().signUpUser(context);
-                    context.read<AuthProvider>().signtoFiree(context);
                   }),
               SizedBox(
                 height: 30.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  LoginWith(
-                    title: 'Google',
-                    image: AppImages.google,
-                    voidCallback: () {
-                      context.read<AuthProvider>().signInWithGoogle(context);
-                    },
-                  ),
-                  LoginWith(
-                    title: 'Facebook',
-                    image: AppImages.facebook,
-                    voidCallback: () {},
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Role : ",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  DropdownButton<String>(
-                    dropdownColor: Colors.white,
-                    isDense: true,
-                    isExpanded: false,
-                    iconEnabledColor: Colors.black,
-                    focusColor: Colors.black,
-                    items: options.map((String item) {
-                      return DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (newValueSelected) {
-                      setState(() {
-                        _currentItemSelected = newValueSelected!;
-                        context.read<AuthProvider>().role = newValueSelected;
-                      });
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ],
-              ),
+              
             ],
           ),
         ),
@@ -138,4 +74,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-

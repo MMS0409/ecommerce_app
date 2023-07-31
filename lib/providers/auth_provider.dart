@@ -7,16 +7,22 @@ import '../data/models/universal_data.dart';
 import '../utils/ui_utils/loading_dialog.dart';
 
 class AuthProvider with ChangeNotifier {
-  AuthProvider( {required this.firebaseServices});
+  AuthProvider({required this.firebaseServices});
 
   final AuthService firebaseServices;
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
-  late String role;
+  String? role;
 
   bool isLoading = false;
+  bool isChecked = false;
+
+  notifyy() {
+    isChecked = !isChecked;
+    notifyListeners();
+  }
 
   loginButtonPressed() {
     passwordController.clear();
@@ -30,14 +36,12 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signUpUser(BuildContext context) async {
+
     String email = emailController.text;
     String password = passwordController.text;
     showLoading(context: context);
     UniversalData universalData =
-        await firebaseServices.signUpUser(email: email, password: password);
-    if (context.mounted) {
-      hideLoading(dialogContext: context);
-    }
+
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
@@ -50,25 +54,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signtoFiree(BuildContext context) async {
-    String email = emailController.text;
-    showLoading(context: context);
-    UniversalData universalData =
-        await firebaseServices.signtoFirestore(email: email, role: role);
-    if (context.mounted) {
-      hideLoading(dialogContext: context);
-    }
 
-    if (universalData.error.isEmpty) {
-      if (context.mounted) {
-        showMessage(context, "User signed Up");
-      }
-    } else {
-      if (context.mounted) {
-        showMessage(context, universalData.error);
-      }
-    }
-  }
 
   Stream<User?> listenAuthState() => FirebaseAuth.instance.authStateChanges();
 
@@ -77,12 +63,16 @@ class AuthProvider with ChangeNotifier {
     String password = passwordController.text;
     showLoading(context: context);
 
-    UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
+    UniversalData universalData =
+        await firebaseServices.loginUser(email: email, password: password);
 
 
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
+
+    UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
+
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
