@@ -8,14 +8,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class CategoryADD extends StatefulWidget {
-  const CategoryADD({super.key});
+class UpdateCategory extends StatefulWidget {
+   UpdateCategory({super.key,required this.categoryModel} );
+  CategoryModel categoryModel;
 
   @override
-  State<CategoryADD> createState() => _CategoryADDState();
+  State<UpdateCategory> createState() => _UpdateCategoryState();
 }
 
-class _CategoryADDState extends State<CategoryADD> {
+class _UpdateCategoryState extends State<UpdateCategory> {
   XFile? _imageFile;
   String? _imageUrl;
 
@@ -37,7 +38,7 @@ class _CategoryADDState extends State<CategoryADD> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Category Add"),
+        title: const Text("Category Update"),
       ),
       body: Padding(
         padding: EdgeInsets.all(10.h),
