@@ -32,7 +32,7 @@ class OrderService {
     try {
       await FirebaseFirestore.instance
           .collection("orders")
-          .doc(orderModel.productId)
+          .doc(orderModel.orderId)
           .update(orderModel.toJson());
 
       return UniversalData(data: "Order updated!");

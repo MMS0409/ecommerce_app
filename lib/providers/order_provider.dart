@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/data/firebase/order_service.dart';
-import 'package:ecommerce_app/data/firebase/products_service.dart';
 import 'package:ecommerce_app/data/models/order/order_model.dart';
 import 'package:ecommerce_app/data/models/product/product_model.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,18 @@ class OrderProvider with ChangeNotifier {
 
   final OrderService orderService;
 
+  int newCount = 1;
 
+  addcount() {
+    newCount++;
+    notifyListeners();
+  }
+  minuscount() {
+    if(newCount>=1){
+      newCount--;
+    notifyListeners();
+    }
+  }
 
   Future<void> addOrders({
     required BuildContext context,
@@ -80,20 +90,20 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
-  Stream<List<ProductModel>> getOrders() =>
-      FirebaseFirestore.instance.collection("Orders").snapshots().map(
+  Stream<List<OrderModel>> getOrders() =>
+      FirebaseFirestore.instance.collection("orders").snapshots().map(
             (event1) => event1.docs
-                .map((doc) => ProductModel.fromJson(doc.data()))
+                .map((doc) => OrderModel.fromJson(doc.data()))
                 .toList(),
           );
 
-           Stream<List<OrderModel>> getOrderssByID(String orderId) {
+  Stream<List<OrderModel>> getOrdersByID(String userId) {
     final databaseReference = FirebaseFirestore.instance.collection('orders');
 
-    return databaseReference
-        .where('orderId', isEqualTo: orderId)
-        .snapshots()
-        .map((querySnapshot) => querySnapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList());
+    return databaseReference.where('userId', isEqualTo: userId).snapshots().map(
+        (querySnapshot) => querySnapshot.docs
+            .map((doc) => OrderModel.fromJson(doc.data()))
+            .toList());
   }
 
   showMessage(BuildContext context, String error) {
