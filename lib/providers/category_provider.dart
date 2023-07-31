@@ -95,12 +95,12 @@ class CategoryProvider with ChangeNotifier {
             .map((doc) => ProductModel.fromJson(doc.data()))
             .toList(),
       );
-  Stream<QuerySnapshot<Map<String,dynamic>>> getAllProductName() =>
-      FirebaseFirestore.instance.collection("products").orderBy("productName").get(
-            (event1) => event1.docs
-            .map((doc) => ProductModel.fromJson(doc.data()))
-            .toList(),
-      );
+  // Stream<QuerySnapshot<Map<String,dynamic>>> getAllProductName() =>
+  //     FirebaseFirestore.instance.collection("products").orderBy("productName").get(
+  //           (event1) => event1.docs
+  //           .map((doc) => ProductModel.fromJson(doc.data()))
+  //           .toList(),
+  //     );
 
 
   Stream<List<ProductModel>> getProductsByCategoryIdStream(String categoryId) {

@@ -36,7 +36,6 @@ class GlobalSearchView extends SearchDelegate {
   }
 
 
-
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> suggestions = suggestionList.where((searchResult) {
