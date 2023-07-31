@@ -7,7 +7,9 @@ import '../data/models/universal_data.dart';
 import '../utils/ui_utils/loading_dialog.dart';
 
 class AuthProvider with ChangeNotifier {
-  AuthProvider({required this.firebaseServices});
+  AuthProvider({required this.firebaseServices}) {
+    notifyy();
+  }
 
   final AuthService firebaseServices;
 
@@ -17,11 +19,20 @@ class AuthProvider with ChangeNotifier {
   String? role;
 
   bool isLoading = false;
-  bool isChecked = false;
+  bool isvisible = true;
 
   notifyy() {
-    isChecked = !isChecked;
-    notifyListeners();
+    print(isvisible);
+    if (FirebaseAuth.instance.currentUser!.email!.contains(
+      "admin",
+    )) {
+      isvisible = true;
+      notifyListeners();
+    } else {
+      isvisible = false;
+      notifyListeners();
+    }
+    print(isvisible);
   }
 
   loginButtonPressed() {
@@ -36,12 +47,14 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signUpUser(BuildContext context) async {
-
     String email = emailController.text;
     String password = passwordController.text;
     showLoading(context: context);
     UniversalData universalData =
-
+        await firebaseServices.signUpUser(email: email, password: password);
+    if (context.mounted) {
+      hideLoading(dialogContext: context);
+    }
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {
@@ -54,8 +67,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-
-
   Stream<User?> listenAuthState() => FirebaseAuth.instance.authStateChanges();
 
   Future<void> logInUser(BuildContext context) async {
@@ -66,13 +77,9 @@ class AuthProvider with ChangeNotifier {
     UniversalData universalData =
         await firebaseServices.loginUser(email: email, password: password);
 
-
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
-
-    UniversalData universalData = await firebaseServices.loginUser(email: email, password: password);
-
 
     if (universalData.error.isEmpty) {
       if (context.mounted) {

@@ -57,9 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               GlobalButton(
                   title: "Sign up",
                   onTap: () async {
-                    context.read<AuthProvider>().signtoFiree(
-                          context,
-                        );
+                    
 
                     context.read<AuthProvider>().signUpUser(context);
                   }),
