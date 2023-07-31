@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/widget/global_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/product/product_model.dart';
@@ -10,12 +11,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String searchText = '';
+    var nameProduct =  context.read<CategoryProvider>().getAllProducts();
+    // List<String> added = [];
+    // added= nameProduct.map((e) => e).toList() as List<String>;
+    // print("====================================================================${added}");
+    List<String> added = ["fvdsv","sdfvsdf"];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        actions: [IconButton(onPressed: (){
+        actions: [IconButton(onPressed: ()async{
+          searchText = await showSearch(context: context, delegate: GlobalSearchView(suggestionList: );
 
-        }, icon:  Icon(Icons.search,size: 30,),)],
+        }, icon: Icon(Icons.search),
+        )]
       ),
       body: StreamBuilder(
           stream: context.read<CategoryProvider>().getAllProducts(),
@@ -25,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             } else if (snapshot.hasData) {
               return snapshot.data!.isNotEmpty
                   ? GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 0.6,
                           crossAxisSpacing: 5,
