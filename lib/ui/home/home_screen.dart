@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_products/add_products.dart';
+import 'package:ecommerce_app/widget/savat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -51,13 +52,14 @@ class HomeScreen extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.6,
+                              childAspectRatio: 0.55,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 5),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, int index) {
                         ProductModel productModel = snapshot.data![index];
                         return Container(
+                          padding: const EdgeInsets.all(5),
                           margin: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                             color: Colors.yellow,
@@ -102,6 +104,7 @@ class HomeScreen extends StatelessWidget {
                               Text(
                                 productModel.createdAt.toString(),
                               ),
+                              SavatButton(productModel: productModel)
                             ],
                           ),
                         );
