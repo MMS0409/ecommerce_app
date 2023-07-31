@@ -18,6 +18,8 @@ class AuthProvider with ChangeNotifier {
   final TextEditingController userNameController = TextEditingController();
   String? role;
 
+  User? usser = FirebaseAuth.instance.currentUser;
+
   bool isLoading = false;
   bool isvisible = true;
 
@@ -127,34 +129,5 @@ class AuthProvider with ChangeNotifier {
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
-  }
-
-  void route(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-    var kk = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        if (documentSnapshot.get('rool') == "Teacher") {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => Teacher(),
-          //   ),
-          // );
-        } else {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => Student(),
-          //   ),
-          // );
-        }
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
   }
 }
