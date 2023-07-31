@@ -2,17 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/providers/products_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_products/add_products.dart';
-
 import 'package:ecommerce_app/ui/home/widget/category_name.dart';
-
 import 'package:ecommerce_app/ui/admin/add_products/update_products.dart';
-
-
 import 'package:ecommerce_app/widget/savat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '../../data/models/product/product_model.dart';
 import '../../providers/category_provider.dart';
 import '../../utils/colors/app_colors.dart';
@@ -63,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                           child: GridView.builder(
                               physics: const BouncingScrollPhysics(),
                               gridDelegate:
-                                   SliverGridDelegateWithFixedCrossAxisCount(
+                                 const  SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
                                       childAspectRatio: 0.50,
                                       crossAxisSpacing: 5,
@@ -73,12 +68,8 @@ class HomeScreen extends StatelessWidget {
                                 ProductModel productModel =
                                     snapshot.data![index];
                                 return Container(
-
                                   padding: EdgeInsets.all(5.h),
                                   margin:  EdgeInsets.all(5.h),
-
-
-
                                   decoration: BoxDecoration(
                                     color: AppColors.c_FDA429, //Colors.yellow,
                                     borderRadius: BorderRadius.circular(10.r),
