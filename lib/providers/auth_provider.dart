@@ -21,20 +21,22 @@ class AuthProvider with ChangeNotifier {
   User? usser = FirebaseAuth.instance.currentUser;
 
   bool isLoading = false;
-  bool isvisible = true;
+  bool isuservisible = true;
+  bool isadminvisible = true;
 
   notifyy() {
-    print(isvisible);
+    print(isadminvisible);
     if (FirebaseAuth.instance.currentUser!.email!.contains(
       "admin",
     )) {
-      isvisible = true;
+      isadminvisible = true;
+      isuservisible = false;
       notifyListeners();
     } else {
-      isvisible = false;
+      isuservisible = true;
+      isadminvisible = false;
       notifyListeners();
     }
-    print(isvisible);
   }
 
   loginButtonPressed() {

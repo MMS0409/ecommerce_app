@@ -17,7 +17,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Visibility(
-        visible: context.read<AuthProvider>().isvisible,
+        visible: context.read<AuthProvider>().isadminvisible,
         child: ElevatedButton(
           style: const ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(

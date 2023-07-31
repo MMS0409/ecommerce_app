@@ -1,5 +1,6 @@
 class OrderModel {
   int count;
+  int price;
   int totalPrice;
   String orderId;
   String productId;
@@ -10,6 +11,7 @@ class OrderModel {
 
   OrderModel({
     required this.count,
+    required this.price,
     required this.totalPrice,
     required this.orderId,
     required this.productId,
@@ -21,6 +23,7 @@ class OrderModel {
 
   OrderModel copWith({
     int? count,
+    int? price,
     int? totalPrice,
     String? orderId,
     String? productId,
@@ -31,6 +34,7 @@ class OrderModel {
   }) =>
       OrderModel(
         count: count ?? this.count,
+        price: price ?? this.price,
         totalPrice: totalPrice ?? this.totalPrice,
         orderId: orderId ?? this.orderId,
         productId: productId ?? this.productId,
@@ -43,6 +47,7 @@ class OrderModel {
   factory OrderModel.fromJson(Map<String, dynamic> jsonData) {
     return OrderModel(
       count: jsonData['count'] as int? ?? 0,
+      price: jsonData['price'] as int? ?? 0,
       totalPrice: jsonData['totalPrice'] as int? ?? 0,
       orderId: jsonData['orderId'] as String? ?? '',
       productName: jsonData['productName'] as String? ?? '',
@@ -56,6 +61,7 @@ class OrderModel {
   Map<String, dynamic> toJson() {
     return {
       'count': count,
+      'price': price,
       'totalPrice': totalPrice,
       'orderId': orderId,
       'productId': productId,
@@ -70,6 +76,7 @@ class OrderModel {
   String toString() {
     return '''
       count: $count,
+      price: $price,
       totalPrice: $totalPrice,
       orderId: $orderId,
       productId: $productId,

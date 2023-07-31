@@ -22,11 +22,14 @@ class _SavatButtonState extends State<SavatButton> {
           style: const ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(Colors.black)),
           onPressed: () {
+             // You can change this to the desired quantity
+          int TotalPrice = context.read<OrderProvider>().newCount * widget.productModel.price;
             context.read<OrderProvider>().addOrders(
                 context: context,
                 orderModel: OrderModel(
-                    count: 1,
-                    totalPrice: 200,
+                    count: context.read<OrderProvider>().newCount,
+                    price: widget.productModel.price,
+                    totalPrice: TotalPrice,
                     orderId: '',
                     productId: widget.productModel.productId,
                     userId: context.read<AuthProvider>().usser!.uid,

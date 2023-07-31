@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_products/add_products.dart';
@@ -93,7 +94,9 @@ class HomeScreen extends StatelessWidget {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                              child: SizedBox(
+
+
+child: SizedBox(
                                                 width: 150.w,
                                                 height: 230.h,
                                                 child: CachedNetworkImage(
