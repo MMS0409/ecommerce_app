@@ -89,18 +89,46 @@ class _CategoryDetailState extends State<CategoryDetail> {
                                   style:
                                       Theme.of(context).textTheme.titleLarge,
                                 ),
-                                subtitle:  Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                subtitle:  Column(
                                   children: [
-                                    Text(
-                                      "${ (productModel.createdAt.toString()).substring(0,16)} ||  ",style:Theme.of(context).textTheme.labelMedium ,
-
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${(productModel.price).toString()} ||  ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        ),
+                                        Container(
+                                            height: 20.h,
+                                            width: 50.w,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(20),
+                                                color: AppColors.c_838589),
+                                            child: Center(
+                                                child: Text(
+                                                  productModel.currency.toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium,
+                                                )))
+                                      ],
                                     ),
-                                    Container(
-                                        height: 20.h,
-                                        width: 40.w,
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: AppColors.c_838589),
-                                        child: Center(child: Text( productModel.count.toString(),style: Theme.of(context).textTheme.bodyMedium,)))
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${ (productModel.createdAt.toString()).substring(0,16)} ||  ",style:Theme.of(context).textTheme.labelMedium ,
+
+                                        ),
+                                        Container(
+                                            height: 20.h,
+                                            width: 40.w,
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: AppColors.c_838589),
+                                            child: Center(child: Text( productModel.count.toString(),style: Theme.of(context).textTheme.bodyMedium,)))
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
