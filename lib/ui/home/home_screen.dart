@@ -68,11 +68,8 @@ class HomeScreen extends StatelessWidget {
                                 ProductModel productModel =
                                     snapshot.data![index];
                                 return Container(
-
                                   padding: EdgeInsets.all(5.h),
                                   margin:  EdgeInsets.all(5.h),
-
-
                                   decoration: BoxDecoration(
                                     color: AppColors.c_FDA429, //Colors.yellow,
                                     borderRadius: BorderRadius.circular(10.r),
