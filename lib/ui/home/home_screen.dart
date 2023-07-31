@@ -1,25 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/providers/auth_provider.dart';
 import 'package:ecommerce_app/ui/admin/add_products/add_products.dart';
-
 import 'package:ecommerce_app/ui/home/widget/category_name.dart';
-import 'package:ecommerce_app/ui/home/widget/shimmer_category_name.dart';
-import 'package:ecommerce_app/utils/size_box_extension.dart';
-
 import 'package:ecommerce_app/widget/savat.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
-import '../../data/models/category/category_model.dart';
 import '../../data/models/product/product_model.dart';
 import '../../providers/category_provider.dart';
 import '../../utils/colors/app_colors.dart';
 import '../../widget/global_like_button.dart';
 import '../../widget/shimmer_category.dart';
 import '../../widget/shimmer_product.dart';
-import '../route/route_names.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -64,20 +56,20 @@ class HomeScreen extends StatelessWidget {
                           child: GridView.builder(
                               physics: const BouncingScrollPhysics(),
                               gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      childAspectRatio: 0.53,
+                                      childAspectRatio: 0.50,
                                       crossAxisSpacing: 5,
                                       mainAxisSpacing: 5),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, int index) {
                                 ProductModel productModel = snapshot.data![index];
                                 return Container(
-                                  padding: EdgeInsets.all(5),
-                                  margin: const EdgeInsets.all(5),
+                                  padding: EdgeInsets.all(5.h),
+                                  margin:  EdgeInsets.all(5.h),
                                   decoration: BoxDecoration(
                                     color: AppColors.c_FDA429, //Colors.yellow,
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(10.r),
                                   ),
                                   child: Column(
                                     children: [
@@ -119,6 +111,30 @@ class HomeScreen extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${(productModel.price).toString()} ||  ",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
+                                          ),
+                                          Container(
+                                              height: 20.h,
+                                              width: 50.w,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  color: AppColors.c_838589),
+                                              child: Center(
+                                                  child: Text(
+                                                    productModel.currency.toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium,
+                                                  )))
+                                        ],
                                       ),
                                       Row(
                                         children: [
