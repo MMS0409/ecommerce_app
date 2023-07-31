@@ -65,6 +65,9 @@ class _CategoryADDState extends State<CategoryADD> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.black),
+                  ),
                   onPressed: () async {
                     await _pickImage();
 
@@ -83,6 +86,9 @@ class _CategoryADDState extends State<CategoryADD> {
               ],
             ),
             ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.black),
+              ),
               onPressed: () {
                 print(_imageUrl);
                 if (context

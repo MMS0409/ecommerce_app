@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app/data/models/product/product_model.dart';
 import 'package:ecommerce_app/providers/products_provider.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,8 @@ class AddProductButton extends StatelessWidget {
     super.key,
     required String? imageUrl,
     required String? catId,
-  }) : _imageUrl = imageUrl,_catID = catId ;
+  })  : _imageUrl = imageUrl,
+        _catID = catId;
 
   final String? _imageUrl;
   final String? _catID;
@@ -17,6 +17,9 @@ class AddProductButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: const ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.black),
+      ),
       onPressed: () {
         if (context
                 .read<ProductsProvider>()
@@ -48,29 +51,29 @@ class AddProductButton extends StatelessWidget {
                 context: context,
                 productModel: ProductModel(
                     count: int.parse(context
-                .read<ProductsProvider>()
-                .ProductsCountcontroller
-                .text),
+                        .read<ProductsProvider>()
+                        .ProductsCountcontroller
+                        .text),
                     price: int.parse(context
-                .read<ProductsProvider>()
-                .ProductsPricecontroller
-                .text),
+                        .read<ProductsProvider>()
+                        .ProductsPricecontroller
+                        .text),
                     productImages: [_imageUrl],
                     categoryId: _catID!,
                     productId: '',
                     productName: context
-                .read<ProductsProvider>()
-                .ProductsNamecontroller
-                .text,
+                        .read<ProductsProvider>()
+                        .ProductsNamecontroller
+                        .text,
                     description: context
-                .read<ProductsProvider>()
-                .ProductsDesccontroller
-                .text,
+                        .read<ProductsProvider>()
+                        .ProductsDesccontroller
+                        .text,
                     createdAt: DateTime.now().toString(),
                     currency: context
-                .read<ProductsProvider>()
-                .ProductsCurrencycontroller
-                .text),
+                        .read<ProductsProvider>()
+                        .ProductsCurrencycontroller
+                        .text),
               );
         }
       },
