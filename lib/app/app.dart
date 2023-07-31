@@ -16,13 +16,10 @@ class App extends StatelessWidget {
         stream: context.read<AuthProvider>().listenAuthState(),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
-            print('error ga krdi');
             return Center(child: Text(snapshot.error.toString()));
           } else if (snapshot.data == null) {
-            print('authScreen ga krdi');
             return const AuthScreen();
           } else {
-            print('tabbox ga krdi');
             return const TabBox();
           }
         },
