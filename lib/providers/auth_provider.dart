@@ -26,7 +26,8 @@ class AuthProvider with ChangeNotifier {
 
   notifyy() {
     print(isadminvisible);
-    if (FirebaseAuth.instance.currentUser!.email!.contains(
+    if(usser!=null){
+      if (usser!.email!.contains(
       "admin",
     )) {
       isadminvisible = true;
@@ -36,6 +37,7 @@ class AuthProvider with ChangeNotifier {
       isuservisible = true;
       isadminvisible = false;
       notifyListeners();
+    }
     }
   }
 
