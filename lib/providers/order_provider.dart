@@ -61,11 +61,11 @@ class OrderProvider with ChangeNotifier {
 
   Future<void> deleteProducts({
     required BuildContext context,
-    required String productsId,
+    required String orderId,
   }) async {
     showLoading(context: context);
     UniversalData universalData =
-        await ProductService.deleteProduct(productId: productsId);
+        await OrderService.deleteProduct(orderId: orderId);
     if (context.mounted) {
       hideLoading(dialogContext: context);
     }
@@ -80,12 +80,21 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
-  Stream<List<ProductModel>> getProducts() =>
-      FirebaseFirestore.instance.collection("products").snapshots().map(
+  Stream<List<ProductModel>> getOrders() =>
+      FirebaseFirestore.instance.collection("Orders").snapshots().map(
             (event1) => event1.docs
                 .map((doc) => ProductModel.fromJson(doc.data()))
                 .toList(),
           );
+
+           Stream<List<OrderModel>> getOrderssByID(String orderId) {
+    final databaseReference = FirebaseFirestore.instance.collection('orders');
+
+    return databaseReference
+        .where('orderId', isEqualTo: orderId)
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList());
+  }
 
   showMessage(BuildContext context, String error) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
