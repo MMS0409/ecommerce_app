@@ -7,7 +7,6 @@ import 'package:ecommerce_app/ui/home/widget/category_name.dart';
 
 import 'package:ecommerce_app/ui/admin/add_products/update_products.dart';
 
-import 'package:ecommerce_app/ui/home/widget/category_name.dart';
 
 import 'package:ecommerce_app/widget/savat.dart';
 import 'package:flutter/material.dart';
@@ -78,8 +77,7 @@ class HomeScreen extends StatelessWidget {
                                   padding: EdgeInsets.all(5.h),
                                   margin:  EdgeInsets.all(5.h),
 
-                                  padding: const EdgeInsets.all(5),
-                                  margin: const EdgeInsets.all(5),
+
 
                                   decoration: BoxDecoration(
                                     color: AppColors.c_FDA429, //Colors.yellow,
