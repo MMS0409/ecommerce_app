@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class UpdateCategory extends StatefulWidget {
-   UpdateCategory({super.key,required this.categoryModel} );
+  UpdateCategory({super.key, required this.categoryModel});
   CategoryModel categoryModel;
 
   @override
@@ -32,6 +32,19 @@ class _UpdateCategoryState extends State<UpdateCategory> {
     setState(() {
       _imageUrl = downloadUrl;
     });
+  }
+
+  textInit() {
+    context.read<CategoryProvider>().categoryNamecontroller.text =
+        widget.categoryModel.categoryName;
+    context.read<CategoryProvider>().categoryDesccontroller.text =
+        widget.categoryModel.description;
+  }
+
+  @override
+  void initState() {
+    textInit();
+    super.initState();
   }
 
   @override
@@ -66,6 +79,9 @@ class _UpdateCategoryState extends State<UpdateCategory> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.black),
+                  ),
                   onPressed: () async {
                     await _pickImage();
 
@@ -84,6 +100,9 @@ class _UpdateCategoryState extends State<UpdateCategory> {
               ],
             ),
             ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.black),
+              ),
               onPressed: () {
                 print(_imageUrl);
                 if (context
@@ -97,10 +116,10 @@ class _UpdateCategoryState extends State<UpdateCategory> {
                         .text
                         .isNotEmpty &&
                     _imageUrl != null) {
-                  context.read<CategoryProvider>().addCategory(
+                  context.read<CategoryProvider>().updateCategory(
                         context: context,
                         categoryModel: CategoryModel(
-                          categoryId: '',
+                          categoryId: widget.categoryModel.categoryId,
                           categoryName: context
                               .read<CategoryProvider>()
                               .categoryNamecontroller
@@ -116,7 +135,7 @@ class _UpdateCategoryState extends State<UpdateCategory> {
                 }
               },
               child: const Text(
-                "Add Category",
+                "Update Category",
               ),
             ),
           ],

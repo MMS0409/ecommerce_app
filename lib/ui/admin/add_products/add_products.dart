@@ -95,6 +95,9 @@ class _AddproductsState extends State<Addproducts> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.black),
+                  ),
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -114,6 +117,9 @@ class _AddproductsState extends State<Addproducts> {
                   ),
                 ),
                 ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.black),
+                  ),
                   onPressed: () async {
                     await _pickImage();
 
@@ -132,7 +138,8 @@ class _AddproductsState extends State<Addproducts> {
               ],
             ),
             AddProductButton(
-              imageUrl: _imageUrl,catId: catID,
+              imageUrl: _imageUrl,
+              catId: catID,
             ),
           ],
         ),
