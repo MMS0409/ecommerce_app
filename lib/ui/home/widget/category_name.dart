@@ -30,8 +30,8 @@ class CategoryNameInHome extends StatelessWidget {
                     CategoryModel categoryModel =
                     snapshot.data![index];
                     return Container(
-                        padding: EdgeInsets.all(3),
-                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(3.h),
+                        margin: EdgeInsets.all(5.h),
                         decoration: BoxDecoration(border: Border.all(color: AppColors.c_111015,width: 1.0),
                             borderRadius: BorderRadius.circular(10.r)),
                         child: Center(child: TextButton(onPressed:(){
