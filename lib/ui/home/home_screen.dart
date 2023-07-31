@@ -51,163 +51,90 @@ class HomeScreen extends StatelessWidget {
       ),
 
       body: Column(
-        children: [
-          CategoryNameInHome(),
-          StreamBuilder(
-              stream: context.read<CategoryProvider>().getAllProducts(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasError) {
-                  return const ShimmerProductScreen();
-                } else if (snapshot.hasData) {
-                  return snapshot.data!.isNotEmpty
-                      ? Expanded(
-                        child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 0.6,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 5),
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, int index) {
-                              ProductModel productModel =
-                                  snapshot.data![index];
-                              return Container(
-                                margin: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        ...List.generate(
-                                          productModel.productImages.length,
-                                          (index) => Padding(
-                                            padding:
-                                                const EdgeInsets.all(8.0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: SizedBox(
-                                                width: 150.w,
-                                                height: 230.h,
-                                                child: CachedNetworkImage(
-                                                    imageUrl: productModel
-                                                        .productImages[index],
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        const ShimmerPhoto(),
-                                                    errorWidget: (context,
-                                                            url, error) =>
-                                                        const Icon(
-                                                            Icons.error,
-                                                            color:
-                                                                Colors.red),
-                                                    fit: BoxFit.fill),
-                                              ),
-                                            ),
-                                          ),
-
-      body: StreamBuilder(
-          stream: context.read<CategoryProvider>().getAllProducts(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) {
-              return const ShimmerProductScreen();
-            } else if (snapshot.hasData) {
-              return snapshot.data!.isNotEmpty
-                  ? GridView.builder(
-                      gridDelegate:
+          children: [
+            CategoryNameInHome(),
+            StreamBuilder(
+                stream: context.read<CategoryProvider>().getAllProducts(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return const ShimmerProductScreen();
+                  } else if (snapshot.hasData) {
+                    return snapshot.data!.isNotEmpty
+                        ? Expanded(
+                      child: GridView.builder(
+                          gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.55,
+                              childAspectRatio:0.55,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 5),
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, int index) {
-                        ProductModel productModel = snapshot.data![index];
-                        return Container(
-                          padding: const EdgeInsets.all(5),
-                          margin: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.yellow,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Stack(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, int index) {
+                            ProductModel productModel =
+                            snapshot.data![index];
+                            return Container(
+                              margin: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.yellow,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
                                 children: [
-                                  ...List.generate(
-                                    productModel.productImages.length,
-                                    (index) => Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: SizedBox(
-                                          width: 150.w,
-                                          height: 230.h,
-                                          child: CachedNetworkImage(
-                                              imageUrl: productModel
-                                                  .productImages[index],
-                                              placeholder: (context, url) =>
+                                  Stack(
+                                    children: [
+                                      ...List.generate(
+                                        productModel.productImages.length,
+                                            (index) => Padding(
+                                          padding:
+                                          const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(20),
+                                            child: SizedBox(
+                                              width: 150.w,
+                                              height: 230.h,
+                                              child: CachedNetworkImage(
+                                                  imageUrl: productModel
+                                                      .productImages[index],
+                                                  placeholder: (context,
+                                                      url) =>
                                                   const ShimmerPhoto(),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      const Icon(Icons.error,
-                                                          color: Colors.red),
-                                              fit: BoxFit.fill),
-
+                                                  errorWidget: (context,
+                                                      url, error) =>
+                                                  const Icon(
+                                                      Icons.error,
+                                                      color:
+                                                      Colors.red),
+                                                  fit: BoxFit.fill),
+                                            ),
+                                          ),
                                         ),
-                                        const Positioned(
-                                            right: 0,
-                                            top: 0,
-                                            child: GlobalLikeButton()),
-                                      ],
-                                    ),
 
-                                    Text(
-                                      productModel.productName,style: Theme.of(context).textTheme.titleLarge,
-                                    ),
-                                    5.ph,
-                                    Text(
-                                      productModel.createdAt.toString().substring(0,16),style: Theme.of(context).textTheme.bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                      )
-                      : const ShimmerProductScreen();
-                }
-                return const ShimmerProductScreen();
-              }),
-        ],
-      ),
 
+
+                                      ),
+                                      const Positioned(
+                                          right: 0,
+                                          top: 0,
+                                          child: GlobalLikeButton()),
+                                    ],
                                   ),
-                                  const Positioned(
-                                      right: 0,
-                                      top: 0,
-                                      child: GlobalLikeButton()),
+                                  Text(
+                                    productModel.productName,style: Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  Text(
+                                    productModel.createdAt.toString().substring(0,16),style:Theme.of(context).textTheme.bodyMedium ,
+                                  ),
+                                  SavatButton(productModel: productModel)
                                 ],
                               ),
-                              Text(
-                                productModel.description,
-                              ),
-                              Text(
-                                productModel.createdAt.toString(),
-                              ),
-                              SavatButton(productModel: productModel)
-                            ],
-                          ),
-                        );
-                      })
-                  : const ShimmerProductScreen();
-            }
-            return const ShimmerProductScreen();
-          }),
-
+                            );
+                          }),)
+                        : const ShimmerProductScreen();
+                  }
+                  return const ShimmerProductScreen();
+                }),
+          ]),
     );
   }
 }
